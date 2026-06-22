@@ -1,0 +1,309 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============== THEME VARIABLES (exact match to source design system) ============== */
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1; /* Content is above background */
+  min-height: 100vh;
+  width: 100%;
+}
+:root {
+  --accent: #00e5ff;
+  --accent-2: #6610f2;
+  --success: #00d084;
+
+  --bg-0: #05070f;
+  --bg-1: #0a0f1f;
+  --bg-2: #0f1530;
+  --surface: rgba(255, 255, 255, 0.06);
+  --surface-strong: rgba(255, 255, 255, 0.1);
+  --border-soft: rgba(255, 255, 255, 0.12);
+  --text: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.68);
+  --text-muted: rgba(255, 255, 255, 0.45);
+
+  --grad-brand: linear-gradient(90deg, #6366f1, #a855f7, #00e5ff);
+  --grad-text: linear-gradient(135deg, #ffffff 0%, #c7d2fe 40%, #67e8f9 100%);
+
+  --shadow-card:
+    0 20px 50px -25px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+}
+
+[data-theme="light"] {
+  --bg-0: #f6f8ff;
+  --bg-1: #ffffff;
+  --bg-2: #eef2ff;
+  --surface: rgba(13, 17, 38, 0.04);
+  --surface-strong: rgba(13, 17, 38, 0.07);
+  --border-soft: rgba(13, 17, 38, 0.1);
+  --text: #0a0f1f;
+  --text-dim: rgba(10, 15, 31, 0.72);
+  --text-muted: rgba(10, 15, 31, 0.5);
+  --grad-text: linear-gradient(135deg, #0d6efd 0%, #6610f2 50%, #00b8d4 100%);
+  --shadow-card:
+    0 20px 50px -25px rgba(10, 15, 31, 0.18),
+    0 0 0 1px rgba(10, 15, 31, 0.05) inset;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id],
+div[id] {
+  scroll-margin-top: 110px;
+}
+main,
+section {
+  position: relative;
+  overflow: visible;
+}
+.btn-brand:hover {
+  transform: translateY(-2px) scale(1.03);
+  background-position: 100% 50%;
+  box-shadow:
+    0 22px 50px -10px rgba(124, 58, 237, 0.7),
+    0 0 0 1px rgba(34, 211, 238, 0.4) inset;
+}
+
+.btn-ghost:hover {
+  background: var(--surface-strong);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.btn-icon:hover {
+  transform: rotate(8deg) scale(1.08);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+body {
+  background: var(--bg-1);
+  color: var(--text);
+  font-family: "Inter", sans-serif;
+  overflow-x: auto;
+  transition:
+    background 0.4s ease,
+    color 0.4s ease;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Sora", sans-serif;
+}
+
+::selection {
+  background: var(--accent-2);
+  color: #fff;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---- theme-aware utility classes (used instead of hardcoded Tailwind colors) ---- */
+.bg-surface {
+  background: var(--surface);
+}
+.bg-surface-strong {
+  background: var(--surface-strong);
+}
+.border-soft {
+  border-color: var(--border-soft);
+}
+.text-main {
+  color: var(--text);
+}
+.text-soft {
+  color: var(--text-dim);
+}
+.text-faint {
+  color: var(--text-muted);
+}
+.bg-card {
+  background: var(--bg-2);
+}
+.text-grad {
+  background: var(--grad-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ============== EXACT HOVER / ANIMATION SYSTEM (matches original) ============== */
+
+/* Card hover lift — same cubic-bezier + shadow as source */
+.lift {
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.4s ease,
+    border-color 0.3s;
+}
+.lift:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 30px 60px -25px rgba(124, 58, 237, 0.45),
+    0 0 0 1px rgba(34, 211, 238, 0.25) inset;
+  border-color: rgba(34, 211, 238, 0.3);
+}
+
+/* Primary gradient button */
+.btn-brand {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  background: var(--grad-brand);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  transition:
+    transform 0.25s ease,
+    background-position 0.6s ease,
+    box-shadow 0.35s ease;
+  box-shadow:
+    0 14px 40px -12px rgba(79, 70, 229, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+}
+.btn-brand:hover {
+  transform: translateY(-2px) scale(1.03);
+  background-position: 100% 50%;
+  box-shadow:
+    0 22px 50px -10px rgba(124, 58, 237, 0.7),
+    0 0 0 1px rgba(34, 211, 238, 0.4) inset;
+  color: #fff;
+}
+.btn-brand:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* Secondary ghost button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  backdrop-filter: blur(14px);
+  transition: all 0.25s ease;
+}
+.btn-ghost:hover {
+  background: var(--surface-strong);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* Round icon button (service card arrow, etc.) */
+.btn-icon {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  color: var(--text);
+  transition: all 0.25s ease;
+}
+.btn-icon:hover {
+  transform: rotate(8deg) scale(1.08);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Nav links */
+.nav-link-x {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-link-x:hover {
+  color: var(--text);
+}
+
+/* Live "pulse" dot used in chips/badges */
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 12px #22d3ee;
+  animation: pulseDot 1.8s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.4);
+  }
+}
+
+/* Floating hero card */
+.float-card {
+  animation: floatY 6s ease-in-out infinite;
+}
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+/* Blinking typed-text cursor */
+.typed-cursor {
+  display: inline-block;
+  animation: typingBlink 0.85s steps(1) infinite;
+}
+@keyframes typingBlink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
